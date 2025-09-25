@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Book>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="w-75 mx-auto">
+<h1>Books</h1>
+    <div class="my-5 row  g-3">
+        <form class="d-flex align-items-center col-9">
+            <input type="search" class="form-control w-50 " placeholder="Search by name..." />
+            <button class="btn btn-secondary py-2 ">Search</button>
+        </form>
+       <a class="btn btn-primary text-capitalize col-3 py-2" asp-action="Create"> 
+           <i class="fas fa-plus"></i>
+            add new book
+       </a>
+    </div>
+     <div>
+        @if (Model.Count() > 0)
+        {
+             <table class=" text-center table table-dark table-hover table-striped table-responsive table-bordered">
+                 <thead class="table-light text-center">
+                     <tr>
+                         <th >@Html.DisplayNameFor(b=>b.ISBN)</th>
+                         <th >@Html.DisplayNameFor(b=>b.Title)</th>
+                         <th >@Html.DisplayNameFor(b=>b.PublishedYear)</th>
+                         <th>Details</th>
+                         <th>Edit</th>
+                         <th>Delete</th>
+                    
+                     </tr>                 
+                     </thead>
+                 <tbody>
+                    @foreach(var item in Model)
+                    {
+                        <tr>
+                            <td>@item.ISBN</td>
+                            <td>@item.Title</td>
+                            <td>@item.PublishedYear</td>
+                            <td>
+                                <a class="btn btn-success" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                            </td>
+                            <td>
+
+                                <a class="btn btn-light" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                            </td>
+                            <td>
+
+                                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+             </table>
+        }
+        else
+        {
+            <div class="card  shadow py-5 shadow-lg border-primary-subtle">
+                <div class="card-body text-center">
+
+                    <i class="fas fa-book-open  bookIcon  text-primary"></i>
+                    <p class="text-muted mt-3 ">No books available</p>
+                    <a class="btn btn-primary text-capitalize col-6 mt-2 py-2" asp-action="Create">
+                        <i class="fas fa-plus"></i>
+                        add new book
+                    </a>
+                </div>
+            </div>
+        }
+
+     </div>
+</div>
+
+

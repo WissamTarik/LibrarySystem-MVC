@@ -21,6 +21,7 @@ namespace Library.Company.DAL.Data.Contexts
             
         }
 
+      
         public DbSet<Book> Books { get; set; }
 
         public DbSet<Category> Categories { get; set; }

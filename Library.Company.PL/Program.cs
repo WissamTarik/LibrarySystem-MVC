@@ -1,3 +1,8 @@
+using Library.Company.BLL.Interfaces;
+using Library.Company.BLL.Repositories;
+using Library.Company.DAL.Data.Contexts;
+using Microsoft.EntityFrameworkCore;
+
 namespace Library.Company.PL
 {
     public class Program
@@ -8,7 +13,13 @@ namespace Library.Company.PL
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-
+            builder.Services.AddScoped<IBookRepository, BookRepository>();
+            builder.Services.AddScoped<IAuthorRepository,AuthorRepository>();
+            builder.Services.AddScoped<ICategoryRepository,CategoryRepository>();
+            builder.Services.AddDbContext<LibraryDbContext>(options =>
+            {
+              options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
