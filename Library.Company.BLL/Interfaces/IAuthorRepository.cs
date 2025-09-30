@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Library.Company.BLL.Interfaces
 {
-    public interface IAuthorRepository
+    public interface IAuthorRepository:IGenericRepository<Author>
     {
-        IEnumerable<Author> GetAll();
-        Author ? GetById(int id);
-        int Add(Author model);
-        int Update(Author model);
-        int Delete(Author model);
+        //IEnumerable<Author> GetAll();
+        //Author ? GetById(int id);
+        //int Add(Author model);
+        //int Update(Author model);
+        //int Delete(Author model);
     }
 }

@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace Library.Company.DAL.Models
 {
-    public class Book
+    public class Book:BaseEntity
     {
-        public int Id { get; set; }
         [Range(1,int.MaxValue,ErrorMessage ="ISBN must be greater than zero")]
         public int ISBN { get; set; }
         public string Title { get; set; }

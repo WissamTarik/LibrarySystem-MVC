@@ -1,4 +1,4 @@
-﻿@model BookDto
+﻿@model CategoryDto
 @{
     ViewData["Title"] = "Edit";
 }
@@ -8,18 +8,24 @@
         <div class="col-md-8 col-lg-6">
             <div class="card shadow-lg border-0 rounded-3">
                 <div class="card-header bg-dark text-white text-center">
-                    <h4> Edit Book @Model.Title</h4>
+                    <h4> Edit Category @Model.Name</h4>
                 </div>
                 <div class="card-body">
                     <form asp-action="Edit">
-                        <partial name="BookPartialView/_CreateAndEditPartialView" />
-
-
+                            @* <div class="form-floating mb-2">
+                                <input class="form-control" placeholder="" asp-for="Name"/>
+                                <label asp-for="Name" class="form-label"></label>
+                            </div> *@
+                        <partial name="CategoryPartialView/_CreateAndEditPartialView" />
                         <div class="d-grid">
                             <button type="submit" class="btn btn-success" asp-action="Edit">
                                 <i class="fas fa-save me-3"></i> Save
                             </button>
-                            <a asp-action="Index" class="btn btn-outline-secondary mt-2">Return to Book List</a>
+                            <a asp-action="Index" class="btn btn-outline-secondary mt-2">Return to Category List
+
+
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
                         </div>
                     </form>
                 </div>
@@ -28,6 +34,3 @@
     </div>
 </div>
 
-@section Validation {
-    <partial name="_ValidationScriptsPartial" />
-}

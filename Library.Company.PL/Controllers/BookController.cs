@@ -1,4 +1,5 @@
-﻿using Library.Company.BLL.Interfaces;
+﻿using AutoMapper;
+using Library.Company.BLL.Interfaces;
 using Library.Company.DAL.Models;
 using Library.Company.PL.Dtos;
 using Microsoft.AspNetCore.Mvc;
@@ -8,14 +9,25 @@ namespace Library.Company.PL.Controllers
     public class BookController : Controller
     {
         private readonly IBookRepository _bookRepository;
-
-        public BookController(IBookRepository bookRepository)
+        private readonly IMapper _mapper;
+        public BookController(IBookRepository bookRepository,IMapper mapper)
         {
            _bookRepository = bookRepository;
+            _mapper = mapper;
         }
-        public IActionResult Index()
+        public IActionResult Index(string? SearchName)
         {
-            var Books = _bookRepository.GetAll();
+            List<Book> Books;
+            if (string.IsNullOrEmpty(SearchName))
+            {
+
+             Books = _bookRepository.GetAll().ToList();
+            }
+            else
+            {
+
+            Books=_bookRepository.GetBookByName(SearchName).ToList();
+            }
             return View(Books);
         }
         [HttpGet]
@@ -29,12 +41,8 @@ namespace Library.Company.PL.Controllers
         {
             if (ModelState.IsValid)
             {
-                var Book = new Book()
-                {
-                    ISBN = model.ISBN,
-                    Title = model.Title,
-                    PublishedYear = model.PublishedYear
-                };
+           
+                var Book=_mapper.Map<Book>(model);
                int Count= _bookRepository.Add(Book);
                 if (Count > 0)
                 {
@@ -45,19 +53,19 @@ namespace Library.Company.PL.Controllers
             return View(model);
         }
         [HttpGet]
-        public IActionResult Details([FromRoute] int ? id)
+        public IActionResult Details([FromRoute] int ? id,string ViewName="Details")
         {
             if (id is null) return BadRequest("Invalid id");
             var Book = _bookRepository.GetById(id.Value);
             if (Book != null) {
-                //var bookDto = new BookDto()
-                //{
-                //    ISBN = Book.ISBN,
-                //    Title = Book.Title,
-                //    PublishedYear = Book.PublishedYear
-                //};
-                return View(Book);
-             
+            
+                if(ViewName=="Details")
+                return View(ViewName,Book);
+                else
+                {
+                    var bookDtos=_mapper.Map<BookDto>(Book);
+                    return View(ViewName,bookDtos);
+                }
             }
             return NotFound(new
             {
@@ -70,24 +78,8 @@ namespace Library.Company.PL.Controllers
         [HttpGet]
         public IActionResult Edit([FromRoute] int? id)
         {
-            if (id is null) return BadRequest("Invalid id");
-            var Book = _bookRepository.GetById(id.Value);
-            if (Book != null)
-            {
-
-                var bookDtos = new BookDto()
-                {
-                    ISBN = Book.ISBN,
-                    Title = Book.Title,
-                    PublishedYear = Book.PublishedYear
-                };
-                return View(bookDtos);
-            }
-            return NotFound(new
-            {
-                StatusCode = 404,
-                message = "Not found"
-            });
+                return Details(id, "Edit");
+             
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

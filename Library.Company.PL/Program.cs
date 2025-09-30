@@ -1,6 +1,7 @@
 using Library.Company.BLL.Interfaces;
 using Library.Company.BLL.Repositories;
 using Library.Company.DAL.Data.Contexts;
+using Library.Company.PL.Mapping;
 using Microsoft.EntityFrameworkCore;
 
 namespace Library.Company.PL
@@ -16,6 +17,11 @@ namespace Library.Company.PL
             builder.Services.AddScoped<IBookRepository, BookRepository>();
             builder.Services.AddScoped<IAuthorRepository,AuthorRepository>();
             builder.Services.AddScoped<ICategoryRepository,CategoryRepository>();
+
+            builder.Services.AddAutoMapper(M => M.AddProfile(new CategoryProfile()));
+
+            builder.Services.AddAutoMapper(M => M.AddProfile(new BookProfile()));
+
             builder.Services.AddDbContext<LibraryDbContext>(options =>
             {
               options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
