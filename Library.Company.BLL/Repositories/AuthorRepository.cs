@@ -9,40 +9,40 @@ using System.Threading.Tasks;
 
 namespace Library.Company.BLL.Repositories
 {
-    public class AuthorRepository : IAuthorRepository
+    public class AuthorRepository : GenericRepository<Author>,IAuthorRepository
     {
-        private readonly LibraryDbContext _context;
-        public AuthorRepository(LibraryDbContext libraryDbContext)
+        //private readonly LibraryDbContext _context;
+        public AuthorRepository(LibraryDbContext libraryDbContext):base(libraryDbContext)
         {
-            _context = libraryDbContext;
+            //_context = libraryDbContext;
             
         }
-        public IEnumerable<Author> GetAll()
-        {
-            return _context.Authors.ToList();
-        }
+        //public IEnumerable<Author> GetAll()
+        //{
+        //    return _context.Authors.ToList();
+        //}
 
-        public Author? GetById(int id)
-        {
-            return _context.Authors.Find(id);
-        }
+        //public Author? GetById(int id)
+        //{
+        //    return _context.Authors.Find(id);
+        //}
 
-        public int Add(Author model)
-        {
-          _context.Add(model);
-            return _context.SaveChanges();
-        }
+        //public int Add(Author model)
+        //{
+        //  _context.Add(model);
+        //    return _context.SaveChanges();
+        //}
 
-        public int Update(Author model)
-        {
-            _context.Update(model);
-            return _context.SaveChanges();
-        }
-        public int Delete(Author model)
-        {
-            _context.Remove(model);
-            return _context.SaveChanges();
-        }
+        //public int Update(Author model)
+        //{
+        //    _context.Update(model);
+        //    return _context.SaveChanges();
+        //}
+        //public int Delete(Author model)
+        //{
+        //    _context.Remove(model);
+        //    return _context.SaveChanges();
+        //}
 
       
        

@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Author>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="w-75 mx-auto">
+    <h1>Authors</h1>
+    <div class="my-5 row  g-3">
+        <form class="d-flex align-items-center col-9" asp-action="Index" id="SearchForm">
+            <input type="search" class="form-control w-50 " id="SearchInput" name="SearchName" placeholder="Search by name..." />
+            <button class="btn btn-secondary py-2 ">Search</button>
+        </form>
+        <a class="btn btn-primary text-capitalize col-3 py-2" asp-action="Create">
+            <i class="fas fa-plus"></i>
+            add new Author
+        </a>
+    </div>
+    <div>
+        @if (Model.Count() > 0)
+        {
+            <table class=" text-center table table-dark table-hover table-striped table-responsive table-bordered">
+                <thead class="table-light text-center">
+                    <tr>
+                        <th>Name</th>
+                        <th>Bio</th>
+                        <th>DOB</th>
+                        <th>Details</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.Bio</td>
+                            <td>@item.DOB</td>
+
+                            <partial name="ButtonsPartialView" model="@item.Id" />
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="card  shadow py-5 shadow-lg border-primary-subtle">
+                <div class="card-body text-center">
+
+                    <i class="fas fa-sad-cry  bookIcon  text-secondary"></i>
+                    <p class="text-muted mt-3 ">No Author available</p>
+                    <a class="btn btn-primary text-capitalize col-6 mt-2 py-2" asp-action="Create">
+                        <i class="fas fa-plus"></i>
+                        add new Author
+                    </a>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+

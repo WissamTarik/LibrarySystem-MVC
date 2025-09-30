@@ -9,40 +9,46 @@ using System.Threading.Tasks;
 
 namespace Library.Company.BLL.Repositories
 {
-    public class BookRepository : IBookRepository
+    public class BookRepository :GenericRepository<Book>, IBookRepository
     {
         private readonly LibraryDbContext _context;
-        public BookRepository(LibraryDbContext libraryDbContext)
+        public BookRepository(LibraryDbContext libraryDbContext):base(libraryDbContext)
         {
             _context = libraryDbContext;
         }
-        public IEnumerable<Book> GetAll()
-        {
-           return _context.Books.ToList();
-        }
 
-        public Book? GetById(int id)
+        public IEnumerable<Book>? GetBookByName(string title)
         {
-            return _context.Books.Find(id);
+            var Book = _context.Books.Where(b => b.Title.ToLower().Contains(title.ToLower()));
+            return Book.ToList();
         }
+        //public IEnumerable<Book> GetAll()
+        //{
+        //   return _context.Books.ToList();
+        //}
 
-        public int Add(Book model)
-        {
-             _context.Books.Add(model);
-            return _context.SaveChanges();
-        }
-        public int Update(Book model)
-        {
-            _context.Books.Update(model);
-            return _context.SaveChanges();
-        }
+        //public Book? GetById(int id)
+        //{
+        //    return _context.Books.Find(id);
+        //}
 
-        public int Delete(Book model)
-        {
-            _context.Books.Remove(model);
-            return _context.SaveChanges();
-        }
+        //public int Add(Book model)
+        //{
+        //     _context.Books.Add(model);
+        //    return _context.SaveChanges();
+        //}
+        //public int Update(Book model)
+        //{
+        //    _context.Books.Update(model);
+        //    return _context.SaveChanges();
+        //}
 
-      
+        //public int Delete(Book model)
+        //{
+        //    _context.Books.Remove(model);
+        //    return _context.SaveChanges();
+        //}
+
+
     }
 }

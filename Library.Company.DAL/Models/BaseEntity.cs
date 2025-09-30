@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Library.Company.DAL.Models
 {
-    public class Category:BaseEntity
+    public class BaseEntity
     {
-        public string Name { get; set; }
+        public int Id { get; set; }
     }
 }

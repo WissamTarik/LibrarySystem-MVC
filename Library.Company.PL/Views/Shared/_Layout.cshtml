@@ -31,12 +31,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Book" asp-action="Index">Books</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Category" asp-action="Index">Categories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Author" asp-action="Index">Authors</a>
+                        </li>
                     </ul>
                  
 
                     <div>
-                        <a class="btn btn-success rounded-pill" asp-action="Login" asp-controller="Auth">Login</a>
-                        <a class="btn btn-danger rounded-pill ms-2" asp-action="LogOut" asp-controller="Auth">Log Out</a>
+                        <a class="btn btn-success rounded-pill d-sm-inline d-block mb-sm-0" asp-action="Login" asp-controller="Auth">Login</a>
+                        <a class="btn btn-danger rounded-pill ms-sm-2 d-block d-sm-inline" asp-action="LogOut" asp-controller="Auth">Log Out</a>
                     </div>
                 
                 </div>
@@ -58,5 +64,6 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("Validation", required: false)
 </body>
 </html>
