@@ -35,7 +35,7 @@ Font Awesome
 
 Clone the repository
 
-git clone https://github.com/yourusername/LibraryManagementSystem-MVC.git
+git clone https://github.com/WissamTarik/LibraryManagementSystem-MVC.git
 
 
 Open the project in Visual Studio 2022.
